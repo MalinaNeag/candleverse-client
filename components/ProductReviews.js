@@ -166,7 +166,7 @@ export default function ProductReviews({ product }) {
                   <NoReviewsMessage>No reviews yet.</NoReviewsMessage>
               ) : (
                   reviews.map((review, index) => (
-                      <ReviewWrapper key={index}>
+                      <ReviewWrapper key={review._id}>
                         <ReviewHeader>
                           <StarsRating
                               size="sm"
