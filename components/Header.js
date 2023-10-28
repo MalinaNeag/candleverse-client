@@ -19,12 +19,18 @@ const Logo = styled(Link)`
   text-decoration: none;
   position: relative;
   z-index: 3;
+  @media screen and (max-width: 767px) {
+    margin-top: 10px; 
+  }
 `;
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
+  @media screen and (max-width: 767px) {
+    padding: 10px;
+  }
 `;
 
 const StyledNav = styled.nav`
@@ -77,6 +83,10 @@ const NavButton = styled.button`
   cursor: pointer;
   position: relative;
   z-index: 3;
+  @media screen and (max-width: 767px) {
+    width: 40px; 
+    height: 40px; 
+  }
   @media screen and (min-width: 768px) {
     display: none;
   }

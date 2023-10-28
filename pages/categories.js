@@ -48,6 +48,10 @@ const ShowAllSquare = styled(Link)`
   justify-content: center;
   color: #555;
   text-decoration: none;
+  @media screen and (max-width: 767px) {
+    height: 80px; 
+    font-size: 14px; 
+  }
 `;
 
 export default function CategoriesPage({mainCategories,categoriesProducts,wishedProducts=[]}) {

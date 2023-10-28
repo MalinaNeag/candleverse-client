@@ -15,26 +15,37 @@ import Tabs from "@/components/Tabs";
 import SingleOrder from "@/components/SingleOrder";
 
 const ColsWrapper = styled.div`
-  display:grid;
-  grid-template-columns: 1.2fr .8fr;
-  gap: 40px;
-  margin: 40px 0;
-  p{
-    margin:5px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin: 20px 0;
+  p {
+    margin: 5px;
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    margin: 40px 0;
   }
 `;
 
 const CityHolder = styled.div`
-  display:flex;
-  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const WishedProductsGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-`;
+  grid-template-columns: 1fr;
+  gap: 20px;
 
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+`;
 export default function AccountPage() {
     const {data:session} = useSession();
     const [name,setName] = useState('');
@@ -116,7 +127,7 @@ export default function AccountPage() {
                                                     <p>Login to see your orders</p>
                                                 )}
                                                 {orders.length > 0 && orders.map(o => (
-                                                    <SingleOrder key={o._id}{...o} />
+                                                    <SingleOrder {...o} />
                                                 ))}
                                             </div>
                                         )}

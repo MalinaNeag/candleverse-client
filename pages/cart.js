@@ -87,29 +87,27 @@ const CityHolder = styled.div`
 `;
 
 export default function CartPage() {
-  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext);
-  const { data: session } = useSession();
-  const [products, setProducts] = useState([]);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [streetAddress, setStreetAddress] = useState('');
-  const [country, setCountry] = useState('');
-  const [isSuccess, setIsSuccess] = useState(false);
+  const {cartProducts,addProduct,removeProduct,clearCart} = useContext(CartContext);
+  const {data:session} = useSession();
+  const [products,setProducts] = useState([]);
+  const [name,setName] = useState('');
+  const [email,setEmail] = useState('');
+  const [city,setCity] = useState('');
+  const [postalCode,setPostalCode] = useState('');
+  const [streetAddress,setStreetAddress] = useState('');
+  const [country,setCountry] = useState('');
+  const [isSuccess,setIsSuccess] = useState(false);
   const [shippingFee, setShippingFee] = useState(null);
-
   useEffect(() => {
     if (cartProducts.length > 0) {
-      axios.post('/api/cart', { ids: cartProducts })
+      axios.post('/api/cart', {ids:cartProducts})
           .then(response => {
             setProducts(response.data);
-          });
+          })
     } else {
       setProducts([]);
     }
   }, [cartProducts]);
-
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
@@ -120,9 +118,8 @@ export default function CartPage() {
     }
     axios.get('/api/settings?name=shippingFee').then(res => {
       setShippingFee(res.data.value);
-    });
-  }, [clearCart]);
-
+    })
+  }, []);
   useEffect(() => {
     if (!session) {
       return;
@@ -136,30 +133,21 @@ export default function CartPage() {
       setCountry(response.data.country);
     });
   }, [session]);
-
   function moreOfThisProduct(id) {
     addProduct(id);
   }
-
   function lessOfThisProduct(id) {
     removeProduct(id);
   }
-
   async function goToPayment() {
     const response = await axios.post('/api/checkout', {
-      name,
-      email,
-      city,
-      postalCode,
-      streetAddress,
-      country,
+      name,email,city,postalCode,streetAddress,country,
       cartProducts,
     });
     if (response.data.url) {
       window.location = response.data.url;
     }
   }
-
   let productsTotal = 0;
   for (const productId of cartProducts) {
     const price = products.find(p => p._id === productId)?.price || 0;
@@ -181,7 +169,6 @@ export default function CartPage() {
         </>
     );
   }
-
   return (
       <>
         <Header />
@@ -204,10 +191,10 @@ export default function CartPage() {
                       </thead>
                       <tbody>
                       {products.map(product => (
-                          <tr key={product._id}>
+                          <tr>
                             <ProductInfoCell>
                               <ProductImageBox>
-                                <img src={product.images[0]} alt="" />
+                                <img src={product.images[0]} alt=""/>
                               </ProductImageBox>
                               {product.title}
                             </ProductInfoCell>
@@ -255,29 +242,29 @@ export default function CartPage() {
                            placeholder="Email"
                            value={email}
                            name="email"
-                           onChange={ev => setEmail(ev.target.value)} />
+                           onChange={ev => setEmail(ev.target.value)}/>
                     <CityHolder>
                       <Input type="text"
                              placeholder="City"
                              value={city}
                              name="city"
-                             onChange={ev => setCity(ev.target.value)} />
+                             onChange={ev => setCity(ev.target.value)}/>
                       <Input type="text"
                              placeholder="Postal Code"
                              value={postalCode}
                              name="postalCode"
-                             onChange={ev => setPostalCode(ev.target.value)} />
+                             onChange={ev => setPostalCode(ev.target.value)}/>
                     </CityHolder>
                     <Input type="text"
                            placeholder="Street Address"
                            value={streetAddress}
                            name="streetAddress"
-                           onChange={ev => setStreetAddress(ev.target.value)} />
+                           onChange={ev => setStreetAddress(ev.target.value)}/>
                     <Input type="text"
                            placeholder="Country"
                            value={country}
                            name="country"
-                           onChange={ev => setCountry(ev.target.value)} />
+                           onChange={ev => setCountry(ev.target.value)}/>
                     <Button black block
                             onClick={goToPayment}>
                       Continue to payment

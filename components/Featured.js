@@ -37,7 +37,7 @@ const Title = styled.h1`
   font-weight:normal;
   font-size:1.5rem;
   @media screen and (min-width: 768px) {
-    font-size:3rem;
+    font-size:2rem;
   }
 `;
 const Desc = styled.p`
@@ -77,6 +77,9 @@ const ButtonsWrapper = styled.div`
   display: flex;
   gap:10px;
   margin-top:25px;
+  @media screen and (max-width: 767px) {
+    margin-bottom: 25px;
+  }
 `;
 const CenterImg = styled.div`
   display: flex;
@@ -105,6 +108,9 @@ const ImgColumn = styled(Column)`
 
 
 const ContentWrapper = styled.div`
+  @media screen and (max-width: 767px) {
+    margin-top: -50px; 
+  }
 `;
 
 export default function Featured({product}) {
